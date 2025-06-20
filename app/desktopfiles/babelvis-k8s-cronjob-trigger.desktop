@@ -1,0 +1,20 @@
+[Desktop Entry]
+Comment[en_US]=Simple application to trigger Cronjobs in Kubernetes as Job
+Comment=Simple application to trigger Cronjobs in Kubernetes as Job
+Exec=/usr/bin/babelvis-k8s-cronjob-trigger
+GenericName[en_US]=
+GenericName=
+Icon=/usr/share/pixmaps/babelvis-k8s-cronjob-trigger.png
+MimeType=
+Name[en_US]=Babelvis - Kubernetes cronjob trigger
+Name=Babelvis - Kubernetes cronjob trigger
+Categories=Development;Utility
+Path=/usr/bin
+StartupNotify=true
+Terminal=false
+TerminalOptions=
+Type=Application
+X-DBUS-ServiceName=
+X-DBUS-StartupType=
+X-KDE-SubstituteUID=false
+X-KDE-Username=
