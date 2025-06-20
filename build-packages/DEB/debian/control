@@ -1,0 +1,10 @@
+Source: babelvis-k8s-cronjob-trigger
+Section: devel
+Priority: optional
+Maintainer: Bas Magré <bas.magre@babelvis.nl>
+Build-Depends: python3, debhelper (>= 13)
+
+Package: babelvis-k8s-cronjob-trigger
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: Simple application to trigger Cronjobs in Kubernetes as Job

@@ -1,0 +1,41 @@
+%define version _VERSION_
+
+Name:           babelvis-k8s-cronjob-trigger
+Version:        %{version}
+Release:        1%{?dist}
+Summary:        Simple application to trigger Cronjobs in Kubernetes as Job
+Group:          Utilities
+License:        None
+BuildRequires:  python python3-pyqt6 python3-kubernetes python3-pip
+Requires:       bash
+URL:            https://github.com/Babelvis/babelvis-k8s-cronjob-trigger.git
+
+%description
+Simple application to trigger Cronjobs in Kubernetes as Job
+
+%prep
+rm -rf %{name}-%{version}
+git clone -b _BRANCH_ %{url} "%{name}-%{version}"
+cd %{name}-%{version}
+
+%build
+cd %{name}-%{version}/app
+pyinstaller --onefile -i "assets/babelvis-k8s-cronjob-trigger.png" --collect-data sip --collect-data kubernetes --noconsole app.py --add-data "assets/*.*:assets" --name babelvis-k8s-cronjob-trigger
+
+%install
+mkdir -p %{buildroot}%{_bindir}
+mkdir -p %{buildroot}%{_datadir}
+mkdir -p %{buildroot}%{_datadir}/pixmaps
+mkdir -p %{buildroot}%{_datadir}/applications
+install -m 755 %{name}-%{version}/app/dist/babelvis-k8s-cronjob-trigger %{buildroot}%{_bindir}/babelvis-k8s-cronjob-trigger
+install -m 644 %{name}-%{version}/app/assets/babelvis-k8s-cronjob-trigger.png %{buildroot}%{_datadir}/pixmaps/babelvis-k8s-cronjob-trigger.png
+install -m 644 %{name}-%{version}/app/desktopfiles/babelvis-k8s-cronjob-trigger.desktop %{buildroot}%{_datadir}/applications/babelvis-k8s-cronjob-trigger.desktop
+
+%files
+%{_bindir}/babelvis-k8s-cronjob-trigger
+%{_datadir}/pixmaps/babelvis-k8s-cronjob-trigger.png
+%{_datadir}/applications/babelvis-k8s-cronjob-trigger.desktop
+
+%changelog
+* Fri Jun 20 2025 BasM. <bas.magre@babelvis.nl>
+- Build RPM

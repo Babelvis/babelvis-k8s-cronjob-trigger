@@ -57,3 +57,39 @@ Run the application with:
 ```bash
 python app/app.py
 ```
+
+## Build packages
+
+### Fedora / Red Hat
+
+```bash
+cd build-packages/RPM
+docker buildx build --platform linux/amd64,linux/arm64 --output out --build-arg BRANCH=main --build-arg VERSION=$(cat ../../version.txt) --progress=plain --no-cache .
+```
+
+### Debian / Mint / Ubuntu
+
+ARM64 build is failing, have to look into that, so only a amd64 for now
+
+```bash
+cd build-packages/DEB
+docker buildx build --platform linux/amd64 --output out --build-arg BRANCH=main --build-arg VERSION=$(cat ../../version.txt) --progress=plain --no-cache .
+```
+
+### Manjaro / Arch
+
+ARM64 build is failing, have to look into that, so only a amd64 for now
+
+```bash
+cd build-packages/AUR
+docker buildx build --platform linux/amd64 --output out --build-arg BRANCH=main --build-arg VERSION=$(cat ../../version.txt) --progress=plain --no-cache .
+```
+
+### Windows
+
+Untested (No Windows VM on this machine)
+
+```bash
+cd app
+python.exe -m PyInstaller  --onefile -i "assets/babelvis-k8s-cronjob-trigger.ico" --collect-data sip --collect-data kubernetes app.py --add-data "assets/*.*;assets" --name babelvis-k8s-cronjob-trigger.exe
+```

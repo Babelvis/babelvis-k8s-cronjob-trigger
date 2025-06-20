@@ -1,0 +1,50 @@
+#!/usr/bin/make -f
+
+DESTDIR = $(CURDIR)/debian/tmp
+CHECKOUTDIR = $(CURDIR)/checkout
+
+url=https://github.com/Babelvis/babelvis-k8s-cronjob-trigger.git
+
+build: build-stamp
+	git clone -b _BRANCH_ $(url) checkout
+	cd checkout/app && pyinstaller --onefile -i "assets/babelvis-k8s-cronjob-trigger.png" --collect-data sip --collect-data kubernetes --noconsole app.py --add-data "assets/*.*:assets" --name babelvis-k8s-cronjob-trigger
+
+build-stamp:
+	dh_testdir
+	touch build-stamp
+
+clean:
+	dh_testdir
+	dh_testroot
+	rm -rf checkout
+	rm -f build-stamp
+	dh_clean
+
+install:
+	dh_prep
+	dh_installdirs
+
+	mkdir -m 755 -p $(DESTDIR)
+
+	install -o root -g root -m 644 $(CHECKOUTDIR)/app/assets/babelvis-k8s-cronjob-trigger.png $(DESTDIR)/babelvis-k8s-cronjob-trigger.png
+	install -o root -g root -m 755 $(CHECKOUTDIR)/app/dist/babelvis-k8s-cronjob-trigger $(DESTDIR)/babelvis-k8s-cronjob-trigger
+	install -o root -g root -m 644 $(CHECKOUTDIR)/app/desktopfiles/babelvis-k8s-cronjob-trigger.desktop $(DESTDIR)/babelvis-k8s-cronjob-trigger.desktop
+
+	dh_install
+	dh_missing --fail-missing
+
+binary: install
+	dh_testroot
+	dh_installchangelogs
+	dh_installdocs
+	dh_installexamples
+	dh_installman
+	dh_link
+	dh_compress
+	dh_fixperms
+	dh_installdeb
+	dh_gencontrol
+	dh_md5sums
+	dh_builddeb
+
+.PHONY: build clean binary install

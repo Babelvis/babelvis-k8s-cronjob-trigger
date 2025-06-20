@@ -1,0 +1,37 @@
+# Maintainer: Bas Magré <bas.magre@babelvis.nl>
+pkgname=babelvis-k8s-cronjob-trigger
+pkgver=_VERSION_
+pkgrel=1
+options=(debug)
+pkgdesc="Simple application to trigger Cronjobs in Kubernetes as Job"
+url="http://babelvis.nl"
+arch=('x86_64'  'aarch64')
+license=('GPL' 'custom')
+makedepends=(
+  'git'
+  'python'
+  'python-pyqt6'
+)
+depends=(
+    )
+source=("${pkgname%-git}::git+https://github.com/Babelvis/babelvis-k8s-cronjob-trigger.git#branch=_BRANCH_")
+md5sums=('SKIP')
+
+pkgver() {
+  echo -n "_VERSION_"
+}
+
+build() { 
+  cd "${srcdir}/babelvis-k8s-cronjob-trigger/app"
+  pyinstaller --onefile -i "assets/babelvis-k8s-cronjob-trigger.png" --collect-data sip --collect-data kubernetes --noconsole app.py --add-data "assets/*.*:assets" --name babelvis-k8s-cronjob-trigger
+}
+
+package() {
+  install -dm755 "${pkgdir}/usr/bin" "$pkgdir"/usr/share/pixmaps/ "$pkgdir"/usr/share/applications/
+  cp "${srcdir}/babelvis-k8s-cronjob-trigger/app/dist/babelvis-k8s-cronjob-trigger" "${pkgdir}/usr/bin/babelvis-k8s-cronjob-trigger"
+  cp "${srcdir}/babelvis-k8s-cronjob-trigger/app/desktopfiles/babelvis-k8s-cronjob-trigger.desktop" "${pkgdir}/usr/share/applications/babelvis-k8s-cronjob-trigger.desktop"
+  cp "${srcdir}/babelvis-k8s-cronjob-trigger/app/assets/babelvis-k8s-cronjob-trigger.png" "${pkgdir}/usr/share/pixmaps/babelvis-k8s-cronjob-trigger.png"
+  chmod 755 "${pkgdir}/usr/bin/babelvis-k8s-cronjob-trigger"
+  chmod 644 "${pkgdir}/usr/share/applications/babelvis-k8s-cronjob-trigger.desktop"
+  chmod 644 "${pkgdir}/usr/share/pixmaps/babelvis-k8s-cronjob-trigger.png"
+}

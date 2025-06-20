@@ -1,0 +1,5 @@
+babelvis-k8s-cronjob-trigger (_VERSION_-1) stretch; urgency=medium
+
+  * First Build
+
+ -- Bas Magré <bas.magre@babelvis.nl>  Fri, 20 Jun 2025 14:36:00 +0200
