@@ -45,17 +45,19 @@ class IntUi_MainWindow(Ui_MainWindow):
         self.listViewNamespaces.setModel(self.namespacesModel)
         self.listViewNamespaces.setEditTriggers(QtWidgets.QAbstractItemView.EditTrigger.NoEditTriggers)
         self.listViewNamespaces.doubleClicked[QtCore.QModelIndex].connect(self.getCronJobs)
-        
+
         self.cronJobsModel = QtGui.QStandardItemModel()
         self.listViewCronJobs.setModel(self.cronJobsModel)
         self.listViewCronJobs.setEditTriggers(QtWidgets.QAbstractItemView.EditTrigger.NoEditTriggers)
-        
+
         self.jobsModel = QtGui.QStandardItemModel(0,2)
         self.jobsModel.setHorizontalHeaderLabels(['Job', 'Status'])
-        self.tableViewJobs.horizontalHeader().setSectionResizeMode(QtWidgets.QHeaderView.ResizeMode.Stretch)
         self.tableViewJobs.setModel(self.jobsModel)
         self.tableViewJobs.setEditTriggers(QtWidgets.QAbstractItemView.EditTrigger.NoEditTriggers)
-        
+        self.tableViewJobs.horizontalHeader().setSectionResizeMode(0, QtWidgets.QHeaderView.ResizeMode.Fixed)
+        self.tableViewJobs.setColumnWidth(0, 500)
+        self.tableViewJobs.setColumnWidth(1, 160)
+
         self.pushButtonStartJob.clicked.connect(self.startJob)
         self.StatusJobs = {}
         self.threads = []
@@ -71,11 +73,11 @@ class IntUi_MainWindow(Ui_MainWindow):
         getNamespacesThread.start()
         # put thread in current active class (keep it alive!)
         self.threads.append(getNamespacesThread)
-    
+
     def putNamespacesOnScreen(self, namespaces: list):
         for i in namespaces:
             self.namespacesModel.appendRow(QtGui.QStandardItem(i))
-    
+
     def getCronJobs(self, index):
         self.listViewNamespaces.setDisabled(True)
         self.cronJobsModel.clear()
@@ -99,7 +101,6 @@ class IntUi_MainWindow(Ui_MainWindow):
         else:
             self.StatusJobs[jobName] = QtGui.QStandardItem(status)
             self.jobsModel.appendRow([QtGui.QStandardItem(jobName), self.StatusJobs[jobName]])
-
 
     def startJob(self):
         currentRow = self.listViewCronJobs.currentIndex().row()
