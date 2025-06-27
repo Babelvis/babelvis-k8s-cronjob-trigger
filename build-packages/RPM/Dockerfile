@@ -3,7 +3,7 @@
 FROM fedora:42 AS build
 
 # install packages needed for application
-RUN sudo dnf install -y rpmdevtools rpm-build git python python3-pyqt6 python3-kubernetes python3-pip
+RUN sudo dnf install -y rpmdevtools sip rpm-build git python python3-pyqt6 python3-kubernetes python3-pip
 
 ARG UID=1000
 ARG VERSION=0.0.1
@@ -16,7 +16,8 @@ USER $UID
 WORKDIR /home/rpm
 
 # pyinstaller is not in the fedora repo
-RUN python -m pip install pyinstaller \
+RUN PATH="$PATH:/home/rpm/.local/bin" \
+    && python -m pip install pyinstaller \
     && mkdir source && mkdir rpmbuild
 
 COPY babelvis-k8s-cronjob-trigger.spec.template babelvis-k8s-cronjob-trigger.spec

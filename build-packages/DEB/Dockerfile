@@ -15,7 +15,7 @@ RUN useradd -rm -d /home/deb -s /bin/bash -u $UID user
 USER $UID
 
 # Need for update to ubuntu 24.04 add: --break-system-packages
-RUN python3 -m pip install pyinstaller sip pyqt6 pyinstaller kubernetes
+RUN PATH="$PATH:/home/deb/.local/bin" && python3 -m pip install pyinstaller sip pyqt6 pyinstaller kubernetes
 
 WORKDIR /home/deb
 

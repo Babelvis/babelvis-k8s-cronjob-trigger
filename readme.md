@@ -91,5 +91,5 @@ Untested (No Windows VM on this machine)
 
 ```bash
 cd app
-python.exe -m PyInstaller  --onefile -i "assets/babelvis-k8s-cronjob-trigger.ico" --collect-data sip --collect-data kubernetes app.py --add-data "assets/*.*;assets" --name babelvis-k8s-cronjob-trigger.exe
+python.exe -m PyInstaller --noconsole --onefile -i "assets/babelvis-k8s-cronjob-trigger.ico" --collect-data sip --collect-data kubernetes app.py --add-data "assets/*.*;assets" --name babelvis-k8s-cronjob-trigger.exe
 ```

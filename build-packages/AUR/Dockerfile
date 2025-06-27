@@ -18,8 +18,7 @@ USER builder
 WORKDIR /builder
 
 RUN mkdir results
-
-RUN pip install pyinstaller sip kubernetes --break-system-packages
+RUN PATH="$PATH:/builder/.local/bin" && pip install pyinstaller sip kubernetes --break-system-packages
 
 COPY PKGBUILD.template PKGBUILD
 RUN sed -i 's/_VERSION_/'$VERSION'/g' PKGBUILD \
