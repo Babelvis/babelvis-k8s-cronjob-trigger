@@ -1,6 +1,6 @@
 # Babelvis kubernetes cronjob trigger
 
-Simple application to trigger Cronjobs in Kubernetes as Job
+Simple "demo" application, This allows you to quickly start a Job within Kubernetes using a template from a CronJob.
 
 ## Techniques used
 
