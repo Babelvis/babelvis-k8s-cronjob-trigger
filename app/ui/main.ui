@@ -6,12 +6,12 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>719</width>
-    <height>536</height>
+    <width>717</width>
+    <height>796</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>CronJobTrigger</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <widget class="QGroupBox" name="groupBoxCronJobSelection">
@@ -29,9 +29,9 @@
     <widget class="QPushButton" name="pushButtonStartJob">
      <property name="geometry">
       <rect>
-       <x>300</x>
-       <y>410</y>
-       <width>88</width>
+       <x>580</x>
+       <y>400</y>
+       <width>91</width>
        <height>34</height>
       </rect>
      </property>
@@ -85,6 +85,29 @@
       <string>CronJobs</string>
      </property>
     </widget>
+    <widget class="QPushButton" name="pushButtonReload">
+     <property name="geometry">
+      <rect>
+       <x>350</x>
+       <y>400</y>
+       <width>121</width>
+       <height>34</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Reload CronJobs</string>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QTableView" name="tableViewJobs">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>490</y>
+      <width>681</width>
+      <height>241</height>
+     </rect>
+    </property>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
@@ -92,7 +115,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>719</width>
+     <width>717</width>
      <height>30</height>
     </rect>
    </property>
