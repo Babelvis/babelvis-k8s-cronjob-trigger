@@ -49,6 +49,7 @@ class IntUi_MainWindow(Ui_MainWindow):
         self.cronJobsModel = QtGui.QStandardItemModel()
         self.listViewCronJobs.setModel(self.cronJobsModel)
         self.listViewCronJobs.setEditTriggers(QtWidgets.QAbstractItemView.EditTrigger.NoEditTriggers)
+        self.listViewCronJobs.doubleClicked[QtCore.QModelIndex].connect(self.startJob)
 
         self.jobsModel = QtGui.QStandardItemModel(0,2)
         self.jobsModel.setHorizontalHeaderLabels(['Job', 'Status'])
@@ -100,7 +101,7 @@ class IntUi_MainWindow(Ui_MainWindow):
             statusItem.setText(status)
         else:
             self.StatusJobs[jobName] = QtGui.QStandardItem(status)
-            self.jobsModel.appendRow([QtGui.QStandardItem(jobName), self.StatusJobs[jobName]])
+            self.jobsModel.insertRow(0, [QtGui.QStandardItem(jobName), self.StatusJobs[jobName]])
 
     def startJob(self):
         currentRow = self.listViewCronJobs.currentIndex().row()
